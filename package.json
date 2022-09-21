@@ -1,0 +1,15 @@
+{
+  "name": "assignment1",
+  "version": "1.0.0",
+  "description": "This is Assignment 1 by Manjeet Kumar",
+  "main": "app.js",
+  "scripts": {
+    "start": "nodemon app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Manjeet Kumar",
+  "license": "ISC",
+  "dependencies": {
+    "nodemon": "^2.0.20"
+  }
+}
