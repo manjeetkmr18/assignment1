@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('./layouts/header'); -%>
+
+    <body>
+
+        <%- include('./layouts/navbar'); -%>
+            <!-- Page Header-->
+            <header class="masthead">
+                <div class="container position-relative px-4 px-lg-5">
+                    <div class="row gx-4 gx-lg-5 justify-content-center">
+                        <div class="col-md-10 col-lg-8 col-xl-7">
+                            <div class="page-heading">
+                                <h1>G2 Test</h1>
+                                <span class="subheading">Book G2 Drive Test Here</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </header>
+            <!-- Main Content-->
+            <main class="mb-4">
+
+                <div class="container g2form-container">
+
+                    <form>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="firstName">First Name</label>
+                                <input type="text" class="form-control" id="firstName" placeholder="First Name">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="lastName">Last Name</label>
+                                <input type="password" class="form-control" id="lastName" placeholder="Last Name">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="licNumber">License Number</label>
+                            <input type="text" class="form-control" id="licNumber" placeholder="License Number">
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="age">Age</label>
+                                <input type="number" class="form-control" id="age" placeholder="Age">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="dob">DOB</label>
+                                <input type="date" class="form-control" id="dob" placeholder="DOB">
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="car-make">Make</label>
+                                <input type="text" id="car-make" placeholder="Car Make">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="car-model">Model</label>
+                                <input type="text" id="car-model" placeholder="Car Model">
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="car-year">Year</label>
+                                <input type="number" id="car-year" placeholder="Car Year">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="plate-number">Number</label>
+                                <input type="text" id="plate-number" placeholder="Plate Number">
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">Submit Request</button>
+                    </form>
+
+                </div>
+
+            </main>
+
+            <%- include('./layouts/scripts'); -%>
+    </body>
+
+</html>

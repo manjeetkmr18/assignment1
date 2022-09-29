@@ -1,6 +1,9 @@
 const express = require("express");
 const path = require("path");
 const app = express();
+const ejs = require("ejs");
+
+app.set("view engine", "ejs");
 
 app.use(express.static("public"));
 
@@ -9,16 +12,16 @@ app.listen(3000, () => {
 });
 
 app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname + "/public/index.html"));
+  res.render("index");
 });
 
 app.get("/g2test", (req, res) => {
-  res.sendFile(path.join(__dirname + "/public/g2test.html"));
+  res.render("g2test");
 });
 
 app.get("/gtest", (req, res) => {
-  res.sendFile(path.join(__dirname + "/public/gtest.html"));
+  res.render("gtest");
 });
 app.get("/login", (req, res) => {
-  res.sendFile(path.join(__dirname + "/public/login.html"));
+  res.render("login");
 });
