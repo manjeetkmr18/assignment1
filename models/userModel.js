@@ -4,7 +4,11 @@ const Schema = mongoose.Schema;
 const userSchema = new Schema({
     firstname: String,
     lastname: String,
-    LicenseNo: String,
+    LicenseNo: {
+        type: String,
+        unique: true,
+        required: true
+    },
     Age: Number,
     car_details: {
         make: String,
