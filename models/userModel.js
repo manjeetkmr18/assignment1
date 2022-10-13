@@ -2,21 +2,9 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const userSchema = new Schema({
-    firstname: {
-        type: String,
-        required: true,
-        trim: true
-    },
-    lastname: {
-        type: String,
-        required: true,
-        trim: true
-    },
-    LicenseNo: {
-        type: String,
-        unique: true,
-        required: true
-    },
+    firstname: String,
+    lastname: String,
+    LicenseNo: String,
     Age: Number,
     car_details: {
         make: String,
