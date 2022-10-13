@@ -23,7 +23,7 @@
 
                 <div class="container g2form-container">
 
-                    <form>
+                    <form action="/g2test/saveuser" method="POST">
                         <p>Fill Personal Information</p>
                         <div class="form-group">
                             <label for="firstname">FirstName</label>
@@ -32,7 +32,7 @@
                         </div>
                         <div class="form-group">
                             <label for="lastname">LastName</label>
-                            <input type="password" class="form-control" id="lastName" placeholder="Last Name"
+                            <input type="text" class="form-control" id="lastName" placeholder="Last Name"
                                 name="lastName">
                         </div>
 
@@ -49,27 +49,25 @@
 
                         <p>Car Details</p>
                         <div class="form-group">
-                            <label for="make">Make</label>
-                            <input type="text" id="car-make" class="form-control" placeholder="Car Make"
-                                name="car-make">
+                            <label for="carMake">Make</label>
+                            <input type="text" id="carMake" class="form-control" placeholder="Car Make" name="carMake">
                         </div>
                         <div class="form-group">
-                            <label for="car-make">Model</label>
-                            <input type="text" id="car-model" class="form-control" placeholder="Car Model"
-                                name="car-model">
+                            <label for="carModel">Model</label>
+                            <input type="text" id="carModel" class="form-control" placeholder="Car Model"
+                                name="carModel">
                         </div>
 
                         <div class="form-group">
-                            <label for="car-model">Year</label>
-                            <input type="number" id="car-year" class="form-control" placeholder="Car Year"
-                                name="car-year">
+                            <label for="carYear">Year</label>
+                            <input type="number" id="carYear" class="form-control" placeholder="Car Year"
+                                name="carYear">
                         </div>
                         <div class="form-group">
-                            <label for="car-number">Plate Number</label>
-                            <input type="text" id="plate-number" class="form-control" placeholder="Plate Number"
-                                name="plate-number">
+                            <label for="plateNumber">Plate Number</label>
+                            <input type="text" id="plateNumber" class="form-control" placeholder="Plate Number"
+                                name="plateNumber">
                         </div>
-
                         <button type="submit" class="btn btn-primary" id="g2-send">Send</button>
                     </form>
 

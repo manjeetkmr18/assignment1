@@ -2,7 +2,7 @@ const express = require("express");
 const app = express();
 const ejs = require("ejs");
 const config = require("./config");
-const userSchema = require("./models/userModel");
+const UserModel = require("./models/userModel");
 
 const bodyParser = require('body-parser')
 app.use(bodyParser.json())
@@ -38,12 +38,19 @@ app.get("/login", (req, res) => {
 
 app.post("/g2test/saveuser", (req, res) => {
   console.log(req.body);
-  userSchema.create(req.body, (err, data) => {
-    if (err) {
-      console.log(err);
-    } else {
-      console.log(data);
+  UserModel.create({
+    firstname: req.body.firstName,
+    lastname: req.body.lastName,
+    LicenseNo: req.body.licNumber,
+    Age: req.body.age,
+    car_details: {
+      make: req.body.carMake,
+      model: req.body.carModel,
+      year: req.body.carYear,
+      platno: req.body.plateNumber
     }
+  }).then(() => {
+    console.log("User created");
+    res.redirect("/");
   });
-  res.redirect("/");
 });
