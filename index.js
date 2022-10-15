@@ -2,7 +2,7 @@ const express = require("express");
 const app = express();
 const ejs = require("ejs");
 const config = require("./config");
-const UserModel = require("./models/userModel");
+const userModel = require("./models/userModel");
 
 const bodyParser = require('body-parser')
 app.use(bodyParser.json())
@@ -36,9 +36,9 @@ app.get("/login", (req, res) => {
 });
 
 
-app.post("/g2test/saveuser", (req, res) => {
+app.post("/g2test/saveuser", async (req, res) => {
   console.log(req.body);
-  UserModel.create({
+  await userModel.create({
     firstname: req.body.firstName,
     lastname: req.body.lastName,
     LicenseNo: req.body.licNumber,
@@ -54,3 +54,27 @@ app.post("/g2test/saveuser", (req, res) => {
     res.redirect("/");
   });
 });
+
+app.get("/gtest/user", async (req, res) => {
+  console.warn(req.query);
+  await userModel.find({
+    LicenseNo: req.query.licNumber
+  }).then((user, err) => {
+    console.log(user);
+    res.send(
+      {
+        firstname: user[0].firstname,
+        lastname: user[0].lastname,
+        LicenseNo: user[0].LicenseNo,
+        Age: user[0].Age,
+        car_details: {
+          make: user[0].car_details.make,
+          model: user[0].car_details.model,
+          year: user[0].car_details.year,
+          platno: user[0].car_details.platno
+        }
+      }
+    );
+  });
+});
+
