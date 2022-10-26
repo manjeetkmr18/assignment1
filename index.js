@@ -19,6 +19,7 @@ app.listen(3000, () => {
 
 config.connect();
 
+
 app.get("/", (req, res) => {
   res.render("index");
 });
@@ -27,9 +28,9 @@ app.get("/g2test", (req, res) => {
   res.render("g2test");
 });
 
-app.get("/gtest", (req, res) => {
-  res.render("gtest");
-});
+// app.get("/gtest", (req, res) => {
+//   res.render("gtest", { usermodel: '' });
+// });
 
 app.get("/login", (req, res) => {
   res.render("login");
@@ -55,26 +56,47 @@ app.post("/g2test/saveuser", async (req, res) => {
   });
 });
 
-app.get("/gtest/user", async (req, res) => {
-  console.warn(req.query);
-  await userModel.find({
-    LicenseNo: req.query.licNumber
-  }).then((user, err) => {
-    console.log(user);
-    res.send(
-      {
-        firstname: user[0].firstname,
-        lastname: user[0].lastname,
-        LicenseNo: user[0].LicenseNo,
-        Age: user[0].Age,
-        car_details: {
-          make: user[0].car_details.make,
-          model: user[0].car_details.model,
-          year: user[0].car_details.year,
-          platno: user[0].car_details.platno
-        }
-      }
-    );
-  });
+app.get("/gtest", async (req, res) => {
+  try {
+    const user = await userModel.findOne({ LicenseNo: req.query.licNumber });
+    console.log(user); 
+
+    // res.setHeader('Content-Type', 'application/json');
+    // res.send(user);
+
+    res.setHeader('Content-Type', 'text/html');
+    res.render("gtest", { usermodel: user });
+  
+  }
+  catch(err) {
+    console.log(err);
+  }
+
+
 });
 
+app.put("/updateuser", async (req, res) => {
+  // console.log(req.body);
+  var query = {
+    LicenseNo: req.query.licNumber
+  };
+
+  console.log(req.body);
+  // const update = req.body;
+  await userModel.updateOne(
+    query, {
+    car_details: {
+      "make": req.body.carMake,
+      "model": req.body.carModel,
+      "year": req.body.carYear,
+      "platno": req.body.plateNumber
+    }
+  }).then((err, res) => {
+    if (err) {
+      console.error(err);
+    } else {
+      console.log(res);
+      // res.redirect("/");
+    }
+  });
+});

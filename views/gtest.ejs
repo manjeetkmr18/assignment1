@@ -22,7 +22,7 @@
             <main class="mb-4">
                 <div class="container g2form-container">
                     <h3>Lisence Number</h3>
-                    <form action="/gtest/user" method="GET">
+                    <form action="/gtest" method="GET">
                         <div class="input-group input-group-lg">
                             <input type="text" class="form-control" aria-label="Large"
                                 aria-describedby="inputGroup-sizing-sm" id="licNumber" name="licNumber">
@@ -31,8 +31,33 @@
                             </div>
                         </div>
                     </form>
+                </div>
+               
+                <% if(usermodel !== null){ %>
+                <div class="container">
+
+                    <% if( usermodel.firstname !== null){ %>
+                        <p>
+                        First Name: <%= usermodel.firstname %>
+                        </p>
+                    <% } %>
+
+                    <% if( usermodel.lastname !==null){ %>
+                        <p>
+                            Last Name: <%= usermodel.lastname %>
+                        </p>
+                        <% } %>
 
                 </div>
+              
+                <% } else { %>
+                        
+                <div class="container">
+                    <p>No User Found</p>
+                </div>
+
+                <% } %>
+
 
             </main>
 
