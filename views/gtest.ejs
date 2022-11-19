@@ -3,10 +3,10 @@
 <%- include('./layouts/header'); -%>
 
     <body>
-
         <%- include('./layouts/navbar'); -%>
             <!-- Page Header-->
-            <header class="masthead" style="  padding-top: 5rem; padding-bottom: 5rem;">
+            <header class="masthead" style="background: url(assets/login.jpg);background-repeat: no-repeat;
+            background-size: cover; background-position: bottom;">
                 <div class="container position-relative px-4 px-lg-5">
                     <div class="row gx-4 gx-lg-5 justify-content-center">
                         <div class="col-md-10 col-lg-8 col-xl-7">
@@ -20,10 +20,10 @@
             </header>
             <!-- Main Content-->
 
-           
+
 
             <main class="mb-4">
-               
+
                 <div class="container g2form-container">
                     <h3>Lisence Number</h3>
                     <form action="/gtest" method="GET">
@@ -37,77 +37,89 @@
                     </form>
                 </div>
 
-                <% if(usermodel == null){ %>
+                <% if(usermodel==null){ %>
 
-                <div class="col text-center p-3">
-                    <h3 class="text-info">User Not Found</h3>
-                </div>
+                    <div class="col text-center p-3">
+                        <h3 class="text-info">User Not Found</h3>
+                    </div>
 
-                <% } else { %>
+                    <% } else { %>
 
-                <div class="container">
+                        <div class="container">
 
-                    <% if( usermodel != null){ %>
-                   
-                    <form action="/gtest/updateuser<%= usermodel.LicenseNo %>" method="POST">
-                        <div class="form-group">
-                            <% if( usermodel.firstname !==null){ %>
-                                <label for="firstname">FirstName</label>
-                                <input type="text" class="form-control" id="firstName" placeholder="First Name" value="<%= usermodel.firstname %>" disabled>
+                            <% if( usermodel !=null){ %>
+
+                                <form action="/gtest/updateuser<%= usermodel.LicenseNo %>" method="POST">
+                                    <div class="form-group">
+                                        <% if( usermodel.firstname !==null){ %>
+                                            <label for="firstname">FirstName</label>
+                                            <input type="text" class="form-control" id="firstName"
+                                                placeholder="First Name" value="<%= usermodel.firstname %>" disabled>
+                                            <% } %>
+                                    </div>
+                                    <div class="form-group">
+                                        <% if( usermodel.lastname !==null){ %>
+                                            <label for="lastname">LastName</label>
+                                            <input type="text" class="form-control" id="lastName"
+                                                placeholder="Last Name" value="<%= usermodel.lastname %>" disabled>
+                                            <% } %>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <% if( usermodel.LicenseNo !==null){ %>
+                                            <label for="licNumber">License Number</label>
+                                            <input type="text" class="form-control" id="licNumber"
+                                                placeholder="License Number" name="licNumber"
+                                                value="<%= usermodel.LicenseNo %>" disabled>
+                                            <% } %>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <% if( usermodel.LicenseNo !==null){ %>
+                                            <label for="age">Age</label>
+                                            <input type="number" class="form-control" id="age" placeholder="Age"
+                                                value="<%= usermodel.Age %>" disabled>
+                                            <% } %>
+                                    </div>
+
+                                    <p>Car Details</p>
+                                    <div class="form-group">
+                                        <% if( usermodel.car_details.make !==null){ %>
+                                            <label for="carMake">Make</label>
+                                            <input type="text" id="carMake" class="form-control" placeholder="Car Make"
+                                                name="carMake" value="<%= usermodel.car_details.make %>">
+                                            <% } %>
+                                    </div>
+                                    <div class="form-group">
+                                        <% if( usermodel.car_details.model !==null){ %>
+                                            <label for="carModel">Model</label>
+                                            <input type="text" id="carModel" class="form-control"
+                                                placeholder="Car Model" name="carModel"
+                                                value="<%= usermodel.car_details.model %>">
+                                            <% } %>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <% if( usermodel.car_details.year !==null){ %>
+                                            <label for="carYear">Year</label>
+                                            <input type="number" id="carYear" class="form-control"
+                                                placeholder="Car Year" name="carYear"
+                                                value="<%= usermodel.car_details.year %>">
+                                            <% } %>
+                                    </div>
+                                    <div class="form-group">
+                                        <% if( usermodel.car_details.platno !==null){ %>
+                                            <label for="plateNumber">Plate Number</label>
+                                            <input type="text" id="plateNumber" class="form-control"
+                                                placeholder="Plate Number" name="plateNumber"
+                                                value="<%= usermodel.car_details.platno %>">
+                                            <% } %>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">Update</button>
+                                </form>
                                 <% } %>
                         </div>
-                        <div class="form-group">
-                            <% if( usermodel.lastname !==null){ %>
-                            <label for="lastname">LastName</label>
-                            <input type="text" class="form-control" id="lastName" placeholder="Last Name" value="<%= usermodel.lastname %>" disabled>
-                            <% } %>
-                        </div>
-                    
-                        <div class="form-group">
-                            <% if( usermodel.LicenseNo !==null){ %>
-                            <label for="licNumber">License Number</label>
-                            <input type="text" class="form-control" id="licNumber" placeholder="License Number" name="licNumber" value="<%= usermodel.LicenseNo %>" disabled>
-                            <% } %>
-                        </div>
-                    
-                        <div class="form-group">
-                            <% if( usermodel.LicenseNo !==null){ %>
-                            <label for="age">Age</label>
-                            <input type="number" class="form-control" id="age" placeholder="Age" value="<%= usermodel.Age %>" disabled>
-                            <% } %>
-                        </div>
-                    
-                        <p>Car Details</p>
-                        <div class="form-group">
-                            <% if( usermodel.car_details.make !==null){ %>
-                            <label for="carMake">Make</label>
-                            <input type="text" id="carMake" class="form-control" placeholder="Car Make" name="carMake" value="<%= usermodel.car_details.make %>" >
-                            <% } %>
-                        </div>
-                        <div class="form-group">
-                            <% if( usermodel.car_details.model !==null){ %>
-                            <label for="carModel">Model</label>
-                            <input type="text" id="carModel" class="form-control" placeholder="Car Model" name="carModel" value="<%= usermodel.car_details.model %>">
-                                <% } %>
-                        </div>
-                    
-                        <div class="form-group">
-                            <% if( usermodel.car_details.year !==null){ %>
-                            <label for="carYear">Year</label>
-                            <input type="number" id="carYear" class="form-control" placeholder="Car Year" name="carYear" value="<%= usermodel.car_details.year %>" >
-                                <% } %>
-                        </div>
-                        <div class="form-group">
-                            <% if( usermodel.car_details.platno !==null){ %>
-                            <label for="plateNumber">Plate Number</label>
-                            <input type="text" id="plateNumber" class="form-control" placeholder="Plate Number" name="plateNumber" value="<%= usermodel.car_details.platno %>" >
-                                <% } %>
-                        </div>
-                        <button type="submit" class="btn btn-primary">Update</button>
-                    </form>
-                     <% } %>
-                </div>
-                <% } %>
+                        <% } %>
 
             </main>
 

@@ -3,6 +3,7 @@ const app = express();
 const ejs = require("ejs");
 const config = require("./config");
 const userModel = require("./models/userModel");
+const bcrypt = require('bcrypt');
 
 const bodyParser = require('body-parser')
 app.use(bodyParser.json())
@@ -28,9 +29,9 @@ app.get("/g2test", (req, res) => {
   res.render("g2test");
 });
 
-  // app.get("/gtest", (req, res) => {
-  //   res.render("gtest", { usermodel: '' });
-  // });
+// app.get("/gtest", (req, res) => {
+//   res.render("gtest", { usermodel: '' });
+// });
 
 app.get("/login", (req, res) => {
   res.render("login");
@@ -39,6 +40,7 @@ app.get("/login", (req, res) => {
 
 app.post("/g2test/saveuser", async (req, res) => {
   console.log(req.body);
+
   await userModel.create({
     firstname: req.body.firstName,
     lastname: req.body.lastName,
@@ -81,7 +83,7 @@ app.post("/gtest/updateuser:licNumber", (req, res) => {
       "platno": req.body.plateNumber
     }
   }).then(() => {
-      console.log("User updated");
-      res.redirect("/");
+    console.log("User updated");
+    res.redirect("/");
   });
 });
