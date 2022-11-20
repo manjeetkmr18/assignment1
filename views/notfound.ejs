@@ -1,37 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
-<%- include('./layouts/header'); -%>
 
+<%- include('layouts/header');-%>
     <body>
-
-        <%- include('./layouts/navbar'); -%>
-            <!-- Page Header-->
-            <header class="masthead">
-                <div class="container position-relative px-4 px-lg-5">
-                    <div class="row gx-4 gx-lg-5 justify-content-center">
-                        <div class="col-md-10 col-lg-8 col-xl-7">
+        <%- include('layouts/navbar');-%>
+            <!-- Page Header -->
+            <header class="masthead" style="background-image: url(assets/gtest.jpg)">
+                <div class="overlay"></div>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-8 col-md-10 mx-auto">
                             <div class="page-heading">
-                               
-                                <h1>User Not Found</h1>
-                               
+                                <h1>404 Page not found</h1>
                             </div>
                         </div>
                     </div>
                 </div>
             </header>
 
-            <main>
-                <div class="container">
-                    <div class="row gx-4 gx-lg-5 justify-content-center">
-                        <div class="col-md-10 col-lg-8 col-xl-7">
-                           <a href="/" class="btn btn-info">Back to Home</a>
-                        </div>
-                    </div>
-                </div>
-            </main>
+            <hr>
 
+            <%- include('layouts/footer');-%>
 
-                <%- include('./layouts/scripts'); -%>
+                <%- include('layouts/scripts');-%>
 
     </body>
 

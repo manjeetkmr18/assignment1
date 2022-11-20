@@ -24,31 +24,13 @@
 
             <main class="mb-4">
 
-                <div class="container g2form-container">
-                    <h3>Lisence Number</h3>
-                    <form action="/gtest" method="GET">
-                        <div class="input-group input-group-lg">
-                            <input type="text" class="form-control" aria-label="Large"
-                                aria-describedby="inputGroup-sizing-sm" id="licNumber" name="licNumber">
-                            <div class="input-group-prepend">
-                                <button type="submit" class="input-group-text bg-primary">Submit</button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-
-                <% if(usermodel==null){ %>
-
-                    <div class="col text-center p-3">
-                        <h3 class="text-info">User Not Found</h3>
-                    </div>
-
-                    <% } else { %>
-
                         <div class="container">
-
-                            <% if( usermodel !=null){ %>
-
+                             
+                        <% if(usermodel.LicenseNo == ''){ %>
+                            <div class="row">
+                                <p>Please Apply for G2 Test First</p>
+                                </div>
+                                <% } else{ %>
                                 <form action="/gtest/updateuser<%= usermodel.LicenseNo %>" method="POST">
                                     <div class="form-group">
                                         <% if( usermodel.firstname !==null){ %>
@@ -118,8 +100,6 @@
                                     <button type="submit" class="btn btn-primary">Update</button>
                                 </form>
                                 <% } %>
-                        </div>
-                        <% } %>
 
             </main>
 
