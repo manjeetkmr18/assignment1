@@ -20,16 +20,20 @@ const updateUser = require("./controllers/updateUser");
 const logoutController = require('./controllers/logout');
 const g2_test = require("./controllers/g2_test");
 const g_test = require("./controllers/g_test");
+const appointmentController = require("./controllers/appointment");
 
-const authMiddleware = require('./middleware/authMiddleware')
+const { authMiddleware, checkUserType } = require('./middleware/authMiddleware');
 
 config.connect();
 app.set("view engine", "ejs");
 app.use(express.static("public"));
 app.listen(3000, () => {
-  console.log("Server running on port 3000");
+  console.warn("Server running on port 3000");
 });
 app.use(expressSession({
+  resave: false,
+  saveUninitialized: false,
+  expires: new Date(Date.now() + 3600000),
   secret: 'keyboard cat'
 }))
 
@@ -39,8 +43,6 @@ global.userType = null;
 app.use("*", (req, res, next) => {
   loggedIn = req.session.userId
   userType = req.session.userType
-  console.log(loggedIn);
-  console.log(userType);
   next()
 })
 
@@ -53,11 +55,12 @@ app.get("/", (req, res) => {
 app.get("/login", LoginPageController);
 app.post('/user/login', LoginUserController);
 app.post('/user/register', NewUserController);
-app.get("/g2test", authMiddleware, g2_test);
-app.get("/gtest", authMiddleware, g_test);
+app.get("/g2test", authMiddleware, checkUserType('driver'), g2_test);
+app.get("/gtest", authMiddleware, checkUserType('driver'), g_test);
 app.post("/gtest/updateuser:licNumber", authMiddleware, UpdateCarDetailsController);
 app.post("/g2test/saveuser", authMiddleware, updateUser);
 app.get('/logout', logoutController);
+app.get('/appointment', authMiddleware, checkUserType('admin'), appointmentController);
 
 
 app.use((req, res) => {

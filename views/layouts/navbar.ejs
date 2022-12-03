@@ -11,13 +11,21 @@
             <ul class="navbar-nav ms-auto py-4 py-lg-0">
                 <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="/">Dashboard</a>
                 </li>
-                 <% if(loggedIn) { %>
-                <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="g2test">G2_Test</a></li>
-                <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="gtest">G_Test</a></li>
-                <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="logout">Logout</a></li>
+                <% if(loggedIn) { %>
+                <% if(userType=='driver' ) { %>
+                    <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="g2test">G2_Test</a></li>
+                    <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="gtest">G_Test</a></li>
+                <% } %>
+                <% if(userType=='admin' ) { %>
+                <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4"
+                        href="appointment">Appointment</a></li>
+                <% } %>
+                <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4"
+                        href="logout">Logout</a></li>
                 <% } %>
                 <% if(!loggedIn) { %>
-                <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="login">Login/Register</a></li>
+                    <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4"
+                            href="login">Login/Register</a></li>
                 <% } %>
             </ul>
         </div>

@@ -13,7 +13,6 @@ module.exports = (req, res) => {
             "platno": req.body.plateNumber
         }
     }).then(() => {
-        console.log("User updated");
         res.redirect("/");
     });
 };

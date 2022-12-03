@@ -2,7 +2,7 @@ const userSchma = require('../models/userModel');
 const bcrypt = require('bcrypt');
 
 module.exports = (req, res) => {
-    console.log(req.body);
+
     userSchma.create(
         {
             firstname: "",
@@ -21,7 +21,7 @@ module.exports = (req, res) => {
         },
         (err, user) => {
         if (err) {
-            console.log(err);
+            console.warn(err);
         } else {
             res.redirect('/');
         }

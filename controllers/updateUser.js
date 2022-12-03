@@ -1,7 +1,6 @@
 const userModel = require('../models/userModel');
 
 module.exports = async(req, res) => {
-    console.log(req.body);
     var query = {
         _id: req.session.userId
     };
@@ -20,7 +19,7 @@ module.exports = async(req, res) => {
                }
          }
     ).then(() => {
-        console.log("User updated");
+        console.warn("User updated");
         res.redirect("/");
     });
 };
