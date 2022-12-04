@@ -5,10 +5,128 @@
     <body>
 
         <%- include('./layouts/navbar'); -%>
-        <header class="masthead" style="padding: 40px;">
-            
 
-        <%- include('./layouts/scripts'); -%>
+
+            <head>
+                <script src="https://code.jquery.com/jquery-3.6.0.min.js">
+                </script>
+
+            </head>
+
+            <header class="masthead" style="padding: 40px;"></header>
+
+            <main>
+
+                <div class="container">
+                    <div class="row gx-4 gx-lg-5 justify-content-center">
+                        <div class="col-md-10 col-lg-8 col-xl-7">
+                            <form action="">
+                                <div>
+                                    <label for="date">Date</label>
+                                    <input class="form-control" type="date" name="date" id="date" placeholder="Date" onchange="selectslotdate()"/>
+                                </div>
+                                <br>
+                                <div>
+                                    <label for="time">Time</label>
+                                    <div class="form-floating">
+                                        <div id="slots"></div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <button class="btn btn-primary btn-lg text-uppercase float-right" id="submitButton"
+                                        type="submit" onclick="postdata()">
+                                        Create
+                                    </button>
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+            </main>
+
+            <footer>
+                <script>
+                    var slotitems = [
+                        "9:30",
+                        "10:00",
+                        "10:30",
+                        "11:00",
+                        "11:30",
+                        "12:00",
+                        "12:30",
+                        "01:00",
+                        "01:30",
+                        "02:00"
+                    ];
+
+                    for (var i = 0; i < slotitems.length; i++) {
+                        document.getElementById("slots").innerHTML +=
+                            "<input  type='button' class='btn btn-success m-2'  value=" +
+                            slotitems[i] +
+                            " id=" +
+                            slotitems[i] +
+                            " onclick=selectslot('" +
+                            slotitems[i] +
+                            "');>";
+                    }
+
+                    function selectslot(slot) {
+                        selectedlot = slot;
+                        var selecteddate = document.getElementById("date").value;
+                        if (selecteddate == "") {
+                            alert("Please select the date");
+                            return;
+                        }
+                        data = { time: selectedlot, date: selecteddate, isTimeSlotAvailable: "true" };
+                        console.log(data);
+                    }
+
+                    //Disable the slots which was already created  on the given date
+                    function selectslotdate() {
+                        var selecteddate = document.getElementById("date").value;
+                        var saveData = $.ajax({
+                            type: "POST",
+                            url: "/checkslots",
+                            data: { date: selecteddate },
+                            success: function (resultData) {
+                                console.log(resultData);
+                                for (var i = 0; i < resultData.length; i++) {
+                                    document.getElementById(resultData[i].time).disabled = true;
+                                    disableslots(resultData[i].time)
+                                }
+                            },
+                        });
+
+                    }
+                    function disableslots(unavailableslot) {
+                        console.log(unavailableslot);
+                        document.getElementById(unavailableslot).disabled = true;
+                        document.getElementById(unavailableslot).classList.remove('btn-success');
+                        document.getElementById(unavailableslot).classList.add('btn-secondary');
+                    }
+
+
+                          //Create the Appointmennt with date with slot 
+                        function postdata() {
+                            var saveData = $.ajax({
+                                type: "POST",
+                                url: "/appointment",
+                                data: data,
+                                success: function (resultData) {
+                                    var unavailableslots = resultData.unavailableslots;
+                                    for (var i = 0; i < unavailableslots.length; i++) {
+                                        disableslots(unavailableslots[i].time)
+                                    }
+                                },
+                            });
+                        }      
+
+                </script>
+            </footer>
+
+            <%- include('./layouts/scripts'); -%>
     </body>
 
 </html>

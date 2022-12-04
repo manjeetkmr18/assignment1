@@ -9,6 +9,9 @@ const appointmentSchema = new Schema({
     time: {
         type: String,
     },
+    isTimeSlotAvailable: {
+        type: Boolean,
+    }
 });
 
 module.exports = mongoose.model('Appointment', appointmentSchema);

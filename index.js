@@ -21,6 +21,8 @@ const logoutController = require('./controllers/logout');
 const g2_test = require("./controllers/g2_test");
 const g_test = require("./controllers/g_test");
 const appointmentController = require("./controllers/appointment");
+const createSlotsController = require("./controllers/createSlotsController");
+const checkSlotsController = require("./controllers/checkSlotsController");
 
 const { authMiddleware, checkUserType } = require('./middleware/authMiddleware');
 
@@ -61,8 +63,10 @@ app.post("/gtest/updateuser:licNumber", authMiddleware, UpdateCarDetailsControll
 app.post("/g2test/saveuser", authMiddleware, updateUser);
 app.get('/logout', logoutController);
 app.get('/appointment', authMiddleware, checkUserType('admin'), appointmentController);
+app.post('/appointment', authMiddleware, checkUserType('admin'), createSlotsController);
+app.post('/checkslots', authMiddleware, checkUserType('admin'), checkSlotsController);
 
 
 app.use((req, res) => {
   res.render('notfound')
-})
+}) 
