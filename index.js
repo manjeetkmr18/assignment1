@@ -23,6 +23,8 @@ const g_test = require("./controllers/g_test");
 const appointmentController = require("./controllers/appointment");
 const createSlotsController = require("./controllers/createSlotsController");
 const checkSlotsController = require("./controllers/checkSlotsController");
+const updateSlots = require("./controllers/updateSlots");
+const getSlotsController = require("./controllers/getSlotsController");
 
 const { authMiddleware, checkUserType } = require('./middleware/authMiddleware');
 
@@ -59,13 +61,14 @@ app.post('/user/login', LoginUserController);
 app.post('/user/register', NewUserController);
 app.get("/g2test", authMiddleware, checkUserType('driver'), g2_test);
 app.get("/gtest", authMiddleware, checkUserType('driver'), g_test);
-app.post("/gtest/updateuser:licNumber", authMiddleware, UpdateCarDetailsController);
-app.post("/g2test/saveuser", authMiddleware, updateUser);
+app.post("/gtest/updateuser:licNumber", checkUserType('driver'), authMiddleware, UpdateCarDetailsController);
+app.post("/g2test/saveuser", authMiddleware, checkUserType('driver'), updateUser);
 app.get('/logout', logoutController);
 app.get('/appointment', authMiddleware, checkUserType('admin'), appointmentController);
 app.post('/appointment', authMiddleware, checkUserType('admin'), createSlotsController);
 app.post('/checkslots', authMiddleware, checkUserType('admin'), checkSlotsController);
-
+app.post('/g2test/getslots', authMiddleware, checkUserType('driver'), getSlotsController);
+app.post('/g2test/updateslots', authMiddleware, checkUserType('driver'), updateSlots);
 
 app.use((req, res) => {
   res.render('notfound')

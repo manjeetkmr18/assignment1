@@ -5,6 +5,13 @@
     <body>
 
         <%- include('./layouts/navbar'); -%>
+
+            <head>
+                <script src="https://code.jquery.com/jquery-3.6.0.min.js">
+                </script>
+            
+            </head>
+
             <!-- Page Header-->
             <header class="masthead" style="background: url(assets/gtest.jpg);background-repeat: no-repeat;
             background-size: cover; background-position: bottom;">
@@ -69,12 +76,90 @@
                             <input type="text" id="plateNumber" class="form-control" placeholder="Plate Number"
                                 name="plateNumber">
                         </div>
-                        <button type="submit" class="btn btn-primary" id="g2-send">Send</button>
+
+                        <div class="form-group">
+                            <label for="date">Date</label>
+                            <input class="form-control" type="date" name="date" id="date" placeholder="Date"
+                                onchange="showAvailableSlots()" />
+                        </div>
+
+                        <div class="form-group">
+                            <label for="time">Time</label>
+                            <div id="slots"></div>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary" id="g2-send" onclick="updateslots">Send</button>
                     </form>
 
                 </div>
 
             </main>
+
+
+            <footer>
+                <script>
+                  function showAvailableSlots(){
+                    var date = document.getElementById("date").value;
+                    var getData = $.ajax({
+                        type: "POST",
+                        url: "/g2test/getslots",
+                        data: {date: date},
+                        success: function(data){
+                            console.log(data);
+
+                            for (var i = 0; i < data.length; i++) {
+
+                                if(data[i].isTimeSlotAvailable == true){
+                                           document.getElementById("slots").innerHTML +=
+                                        "<input  type='button' class='btn btn-success m-2'  value=" +
+                                        data[i].time +
+                                        " id=" +
+                                        data[i].time +
+                                        " onclick=selectslot('" +
+                                        data[i].time +
+                                        "');>";
+                                }
+                                else{
+                                      document.getElementById("slots").innerHTML += 
+                                      "<input  type='button' class='btn btn-secondary m-2' disabled value=" +
+                                        data[i].time +
+                                        " id=" +
+                                        data[i].time +
+                                        " onclick=selectslot('" +
+                                        data[i].time +
+                                        "');>";
+                                }
+                        
+                            }
+
+                        }
+                    })
+                  }
+
+
+                  function selectslot(time){
+                    document.getElementById(time).classList.remove("btn-success");
+                    document.getElementById(time).classList.add("btn-danger");
+                    document.getElementById(time).disabled = true;
+                    document.getElementById("g2-send").disabled = false;
+                    updateslots(time);
+                  }
+
+                  function updateslots(time){
+                    var date = document.getElementById("date").value;
+                    var updateSlot = $.ajax({
+                        type: "POST",
+                        url: "/g2test/updateslots",
+                        data: {date: date,
+                                time: time},
+                        success: function(data){
+                            console.log(data);
+                        }
+                    })
+                  }
+
+                </script>
+            </footer>
 
             <%- include('./layouts/scripts'); -%>
     </body>

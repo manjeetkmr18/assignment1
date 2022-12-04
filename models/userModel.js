@@ -30,7 +30,7 @@ const userSchema = new Schema({
         model: String,
         year: Number,
         platno: String
-    }
+    },
 });
 
     userSchema.pre('save', function (next) {
